@@ -6,7 +6,7 @@ Condicionales
 
 let nombre = "Fernando"
 
-if (nombre === "Cristian") {
+if (nombre === "Fernando") {
     console.log("Hola Fer")
 }else if (nombre === "Cristian"){
     console.log("Hola Cris")
