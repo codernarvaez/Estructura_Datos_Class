@@ -1,0 +1,141 @@
+class NodoBusqueda {
+    constructor(keyword, urlCache){
+        this.keyhword = keyword;
+        this.urlCache = urlCache;
+        this.visitas = 1;
+        this.izquierdo = null;
+        this.derecho = null;
+    }
+
+}
+
+
+class MotorIndexacionBST {
+    contructor(){
+        this.raiz = null;
+    }
+
+
+    // Indexar nueva consulta en el historial
+    indexar(keyword, urlCache) {
+        const nuevoNodo = new NodoBusqueda(keyword, urlCache);
+        if (this.raiz === null) {
+            this.raiz = nuevoNodo;
+        } else {
+            this._insertarNodo(this.raiz, nuevoNodo);
+        }
+    }
+    
+    _insertarNodo(nodoActual, nuevoNodo) {
+    while (true) {
+        // En JavaScript, los operadores < y > comparan Strings lexicográficamente
+        if (nuevoNodo.demoHistorial < nodoActual.demoHistorial) {
+            // Ir a la izquierda
+            if (nodoActual.izquierdo === null) {
+                nodoActual.izquierdo = nuevoNodo;
+                break; // Inserción exitosa, rompemos el bucle
+            }
+            nodoActual = nodoActual.izquierdo;
+        } 
+        else if (nuevoNodo.demoHistorial > nodoActual.demoHistorial) {
+            // Ir a la derecha
+            if (nodoActual.derecho === null) {
+                nodoActual.derecho = nuevoNodo;
+                break; // Inserción exitosa, rompemos el bucle
+            }
+            nodoActual = nodoActual.derecho;
+        } 
+        else {
+            nodoActual.demoNodo = nuevoNodo.demoNodo;
+            break;
+        }
+    }
+
+    buscar(demoHistorial) {
+        let nodoActual = this.raiz;
+        let ciclosDeComparacion = 0; // Métrica de auditoría "Eco-friendly"
+        while (nodoActual !== null) {
+            ciclosDeComparacion++;
+            if (demoHistorial === nodoActual.demoHistorial) {
+            console.log(`Búsqueda exitosa en ${ciclosDeComparacion} ciclos.`);
+            return nodoActual.paciente;
+        } else if (codigoMicrochip < nodoActual.codigoMicrochip) {
+            nodoActual = nodoActual.izquierdo; // Descartamos la mitad derecha
+        } else {
+            nodoActual = nodoActual.derecho; // Descartamos la mitad izquierda
+        }
+        console.log(`Finalizado con los Ciclos desperdiciados: ${ciclosDeComparacion}`);
+        return null;
+    }
+    
+
+}
+
+    
+
+    // Recorrido Inorden: Exportar el historial ordenado alfabéticamente (A-Z)
+    exportarHistorial(nodo = this.raiz) {
+        // TAREA DEL ESTUDIANTE: Implementar recorrido Inorden.
+    }
+
+
+    //Indexar nueva consulta en el historial
+    indexar(keyword, urlCache){
+        const nuevoNodo = new NodoBusqueda(keyword, urlCache);
+        if (this.raiz == null) {
+            this.raiz = nuevoNodo;
+            return;
+            
+        }
+
+        let actual = this.raiz;
+        while(true){
+            if (keyword === actual.keyword){
+                actual.visitas++;
+                return;
+            } else if (keyword < actual.keyword){
+                if (actual.izquierdo === null){
+                    actual.izquierdo = nuevoNodo;
+                    return;
+                }
+                actual = actual.izquierdo
+            } else {
+                if (actual.derecho === null){
+                    actual.derecho = nuevoNodo;
+                    return;
+                }
+            }
+        }
+
+    }
+
+//Pruebas gastadas en Ciclos de CPU.
+
+    ciclosGPUGastados(keyword) {
+        let actual = this.raiz;
+        let ciclosCPU = 0; 
+
+        while (actual !== null) {
+            ciclosCPU++; 
+            if (keyword === actual.keyword) {
+                return { encontrado: true, ciclos: ciclosCPU };
+            } else if (keyword < actual.keyword) {
+                actual = actual.izquierdo;
+            } else {
+                actual = actual.derecho;
+            }
+        }
+        return { encontrado: false, ciclos: ciclosCPU };
+    }
+}
+
+console.log("INICIANDO PRUEBAS PARA MOTOR DE BÚSQUEDA...\n");
+
+const TOTAL_KEYWORDS = 10000;
+let datosSecuenciales = [];
+for (let i = 1; i <= TOTAL_KEYWORDS; i++) {
+    datosSecuenciales.push("go_" + i.toString().padStart(5, '0')); 
+}
+const palabraABuscar = datosSecuenciales[TOTAL_KEYWORDS - 1]; 
+
+
